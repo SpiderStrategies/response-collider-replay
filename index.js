@@ -24,31 +24,9 @@ TimeEmitter.prototype._transform = function (data, enc, next) {
   }).bind(this), moment(data.timestamp, format).diff(this.last))
 }
 
-function Parse () {
-  Transform.call(this, {objectMode: true})
-}
-
-util.inherits(Parse, Transform)
-
-Parse.prototype._transform = function (data, enc, next) {
-  var line = data.toString('utf8').split(' ')
-  if (line.length !== 11) {
-    return next()
-  }
-
-  this.push({
-    timestamp: line[3].substring(1),
-    resource: line[6],
-    code: line[8],
-    body_bytes_sent: parseInt(line[9], 10),
-    request_time: parseInt(line[10], 10)
-  })
-  next()
-}
-
-fs.createReadStream(process.argv[2])
-  .pipe(es.split())
-  .pipe(new Parse)
-  .pipe(new TimeEmitter)
-  .pipe(es.stringify())
-  .pipe(process.stdout)
+process.stdin
+       .pipe(es.split())
+       .pipe(es.parse())
+       .pipe(new TimeEmitter)
+       .pipe(es.stringify())
+       .pipe(process.stdout)
