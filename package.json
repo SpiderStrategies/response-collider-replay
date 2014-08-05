@@ -1,0 +1,15 @@
+{
+  "name": "response-collider-replay",
+  "version": "1.0.0",
+  "description": "Replay requests from a log to send into response collider for demonstration purposes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "event-stream": "^3.1.7",
+    "moment": "^2.8.1"
+  }
+}
